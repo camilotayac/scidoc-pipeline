@@ -11,9 +11,9 @@ import click
 @click.option("--out-dir", "-o", type=click.Path(file_okay=False, dir_okay=True), default=None, help="Output directory for generated files (defaults to the same directory as the PDF).")
 def main(pdf, out_dir):
     """
-    Transcription stage of the Book Translation Pipeline.
-    Converts PDF to Markdown using docling.
-    The subsequent translation and analysis are orchestrated by the AI agent system.
+    Agente Transcriptor y Detector de Idioma.
+    Transcripción inicial del PDF a Markdown usando Docling y detección automática
+    de idioma para omitir traducción si el documento original ya está en español.
     """
     pdf_path = Path(pdf).resolve()
     base_name = pdf_path.stem

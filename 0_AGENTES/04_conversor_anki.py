@@ -1,3 +1,8 @@
+"""
+Agente de Conversión e Inyección en Anki (Anki Bridge).
+Parsea el Markdown de estudio, extrae las fichas (Active Recall), las formatea a HTML/MathJax
+y las inserta directamente en los submazos correctos mediante la API de AnkiConnect.
+"""
 import re
 import os
 

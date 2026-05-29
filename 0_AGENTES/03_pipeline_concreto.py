@@ -10,9 +10,9 @@ load_dotenv()
 
 def process_section(section_title, section_body, client, model_name):
     """
-    Simulates the two-stage process: extraction and rewriting.
-    We instruct the model to first extract the core equations, figures, and concepts,
-    and then rewrite the section as a highly fluid, scientifically rigorous, and concise summary.
+    Agente de Síntesis y Deducciones Paso a Paso (Extractor y Escritor).
+    Coordina la extracción de fórmulas y conceptos clave, y redacta una síntesis fluida
+    con la inserción automática de deducciones algebraicas completas en notas.
     """
     prompt = f"""
 Actúa como un equipo de dos expertos en comunicación científica y química cuántica:

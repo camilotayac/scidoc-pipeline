@@ -10,8 +10,9 @@ load_dotenv()
 
 def generate_concept_guide(input_md_path: str, output_md_path: str, model_name: str = "gemini-2.5-pro"):
     """
-    Reads a translated Markdown file, sends it to Gemini to analyze and evaluate 
-    difficult/advanced concepts, and writes the explanatory guide to the output path.
+    Agente Integrador de Conceptos.
+    Analiza la traducción en Markdown mediante Gemini para identificar conceptos técnicos
+    complejos y redactar explicaciones didácticas de apoyo (técnica de Feynman + analogías).
     """
     # Ensure API key is set
     if not os.environ.get("GEMINI_API_KEY"):

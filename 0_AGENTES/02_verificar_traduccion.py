@@ -1,3 +1,8 @@
+"""
+Agente de Verificación de Estilo y Fórmulas LaTeX.
+Audita la traducción generada buscando errores sintácticos de LaTeX, marcadores residuales
+y asegurando la consistencia e integración correcta de las explicaciones de conceptos.
+"""
 import re
 import os
 import sys
