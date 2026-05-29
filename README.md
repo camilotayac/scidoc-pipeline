@@ -135,4 +135,24 @@ Una vez que tengas un nuevo PDF (ejemplo: `capitulo_1.pdf`), el proceso es muy s
    ```bash
    python 0_AGENTES/04_conversor_anki.py
    ```
-   *¡Tus tarjetas se organizarán automáticamente en submazos de Física y Matemáticas dentro del mazo principal **Química Cuántica**!*
+   *¡Tus tarjetas se organizarán automáticamente en submazos de Física y Matemáticas dentro del mazo principal **SciDoc**!*
+
+---
+
+## 🤖 Integración con Asistentes de Codificación IA (AI Agents)
+
+Este repositorio ha sido diseñado bajo una arquitectura **Agent-First**. Está optimizado para que asistentes de terminal autónomos como **Antigravity CLI (Gemini)**, **OpenCode** o **Claude Code (Anthropic)** puedan leer las reglas del proyecto, ejecutar las herramientas y realizar correcciones automáticamente.
+
+### Instrucciones para los Agentes (Prompts Sugeridos)
+
+Puedes pedirle directamente a tu asistente de IA de preferencia que realice las tareas del pipeline. Aquí tienes algunos ejemplos:
+
+*   **Para procesar un nuevo capítulo completo**:
+    > *"Ejecuta el script de transcripción `01_transcriptor_pdf.py` para el PDF `1_CAPITULO/capitulo_2.pdf` y, si está en inglés, coordina la traducción y generación del resumen en la carpeta `3_CONCRETO/`."*
+*   **Para sincronizar fichas automáticamente**:
+    > *"Asegúrate de que mi aplicación Anki esté abierta y ejecuta el script `04_conversor_anki.py` para sincronizar las nuevas tarjetas."*
+*   **Para corregir errores de formato**:
+    > *"Lee el archivo `00_ejecutor.md` y verifica que los archivos en `2_TRADUCCIONES/` y `3_CONCRETO/` no contengan etiquetas `formula-not-decoded` ni errores de sintaxis LaTeX."*
+
+Los agentes tienen total capacidad de ejecutar comandos locales, validar la sintaxis de las ecuaciones y resolver problemas de codificación de forma autónoma.
+
