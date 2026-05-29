@@ -101,30 +101,40 @@ Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo
 ### Fases de Ejecución:
 
 *   **Para transcribir y estructurar el PDF**:
-    > 🤖 **Prompt**: *"Ejecuta la transcripción en 01_transcriptor_pdf.py para el PDF en 1_CAPITULO/capitulo_1.pdf y verifica el idioma detectado."*
-    *(Nota: Si el agente detecta que el PDF ya está en español, omitirá automáticamente la Fase 2 de traducción).*
+    > 🤖 **Prompt**: *"Ejecuta la transcripción local ejecutando `python 0_AGENTES/01_transcriptor_pdf.py --pdf 1_CAPITULO/capitulo_1.pdf` y verifica el idioma detectado."*
+    *(Nota: Si el agente detecta que el PDF ya está en español, copiará el borrador directamente a `2_TRADUCCIONES/` y se omitirá la traducción).*
     
-*   **Para traducir y realizar control de calidad**:
-    > 🤖 **Prompt**: *"Traduce el capítulo transcrito, verifica que la sintaxis LaTeX sea correcta y que los conceptos técnicos clave queden destacados en negrita según las reglas de 00_ejecutor.md."*
+*   **Para traducir (Fase 2)**:
+    *(Solo si el original está en inglés)*:
+    > 🤖 **Prompt**: *"Traduce el capítulo transcrito `1_CAPITULO/capitulo_1.md` al español académico siguiendo las reglas del documento `00_ejecutor.md` y guarda el borrador. Luego, ejecuta localmente el validador `python 0_AGENTES/02_verificar_traduccion.py` para auditar la sintaxis LaTeX."*
 
-*   **Para sintetizar el contenido y crear las fichas de estudio**:
-    > 🤖 **Prompt**: *"Genera el resumen concreto en 3_CONCRETO/ y las fichas de aprendizaje en 4_APRENDER/ para este capítulo."*
+*   **Para integrar conceptos y explicaciones**:
+    > 🤖 **Prompt**: *"Lee las instrucciones del agente en `0_AGENTES/02_integrador_conceptos.md` y aplícalas sobre el borrador traducido para generar el archivo final `2_TRADUCCIONES/capitulo_1.es.md` con las explicaciones en cursiva."*
 
-*   **Para crear el tutorial interactivo de Google Colab (basado en el resumen concreto)**:
-    > 🤖 **Prompt**: *"Ejecuta el script 05_generador_colab.py pasando como entrada el archivo resumido en 3_CONCRETO/1.concreto.md y guardando la libreta resultante en 5_COLAB/1_tutorial.ipynb."*
+*   **Para sintetizar el contenido (Fase 3)**:
+    > 🤖 **Prompt**: *"Lee las instrucciones de `0_AGENTES/03_pipeline_concreto.md` y aplícalas sobre `2_TRADUCCIONES/capitulo_1.es.md` para generar el resumen riguroso en `3_CONCRETO/capitulo_1.concreto.md`."*
 
-*   **Para sincronizar con tu Anki**:
-    > 🤖 **Prompt**: *"Asegúrate de que mi aplicación Anki esté abierta y ejecuta el script 04_conversor_anki.py para importar las fichas directamente."*
+*   **Para generar fichas de Anki**:
+    > 🤖 **Prompt**: *"Genera las preguntas de autoevaluación (Feynman, Active Recall, repetición y práctica) en `4_APRENDER/capitulo_1.es.aprender.md`. Asegúrate de que mi aplicación Anki esté abierta y ejecuta localmente el script `python 0_AGENTES/04_conversor_anki.py` para importarlas directamente al mazo SciDoc."*
+
+*   **Para crear el tutorial interactivo de Google Colab**:
+    > 🤖 **Prompt**: *"Lee las instrucciones de `0_AGENTES/05_generador_colab.md` y aplícalas sobre `3_CONCRETO/capitulo_1.concreto.md` para generar la libreta interactiva de Jupyter en `5_COLAB/capitulo_1_tutorial.ipynb`."*
 
 ---
 
 ## 📂 Estructura del Repositorio
 
-*   📁 **`0_AGENTES/`**: Scripts de automatización ejecutados por los agentes (`01_transcriptor_pdf.py`, `02_verificar_traduccion.py`, `03_pipeline_concreto.py`, `04_conversor_anki.py`, `05_generador_colab.py`).
+*   📁 **`0_AGENTES/`**: Contiene los agentes (definidos en Markdown `.md`) y los scripts locales de verificación/conversión:
+    *   `01_transcriptor_pdf.py` (Script local: Transcripción inicial).
+    *   `02_verificar_traduccion.py` (Script local: Auditoría de sintaxis y LaTeX).
+    *   `02_integrador_conceptos.md` (Agente de IA: Instrucciones de conceptos).
+    *   `03_pipeline_concreto.md` (Agente de IA: Instrucciones de síntesis).
+    *   `04_conversor_anki.py` (Script local: Conversión y sincronización AnkiConnect).
+    *   `05_generador_colab.md` (Agente de IA: Instrucciones de creación de libretas Jupyter).
 *   📁 **`1_CAPITULO/`**: PDF original y transcripción Markdown (`.md`) inicial.
 *   📁 **`2_TRADUCCIONES/`**: Archivos traducidos formalmente al español científico.
 *   📁 **`3_CONCRETO/`**: Versión condensada con explicaciones paso a paso de fórmulas complejas.
-*   📁 **`4_APRENDER/`**: Cronogramas de repetición y la memoria de mazos de Anki (`MEMORIA_ANKI/`).
+*   📁 **`4_APRENDER/`**: Fichas de Active Recall y memoria de mazos de Anki (`MEMORIA_ANKI/`).
 *   📁 **`5_COLAB/`**: Libretas de Jupyter resultantes (`.ipynb`) para Google Colab.
 
 

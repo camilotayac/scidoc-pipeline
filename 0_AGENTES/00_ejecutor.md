@@ -195,20 +195,18 @@ pipeline_options = PdfPipelineOptions(
 
 ```
 □ 1. Colocar {N}.pdf en la carpeta 1_CAPITULO/
-□ 2. Ejecutar transcripción: DOCLING_DEVICE=cpu python 0_AGENTES/01_transcriptor_pdf.py --pdf 1_CAPITULO/{N}.pdf
-□ 3. Verificar que 1_CAPITULO/{N}.md se generó correctamente
-□ 4. Contar fórmulas no decodificadas: grep -c 'formula-not-decoded' 1_CAPITULO/{N}.md
-□ 5. Verificar idioma: ¿El archivo .md ya está en español?
-     - Sí: Omitir paso 6. Copiar 1_CAPITULO/{N}.md directamente a 2_TRADUCCIONES/{N}.es.md (o borrador intermedio).
-     - No: Continuar al paso 6.
-□ 6. Ejecutar traducción por chunks con translation_agent
-□ 7. Ejecutar verificación de cada chunk con verification_agent
-□ 8. Ensamblar 2_TRADUCCIONES/{N}.es.md con todos los chunks verificados
-□ 9. Integrar explicaciones adicionales de conceptos directamente en 2_TRADUCCIONES/{N}.es.md en cursiva y paréntesis
-□ 10. Verificar cero marcadores residuales en 2_TRADUCCIONES/{N}.es.md
-□ 11. Generar fichas de aprendizaje en 4_APRENDER/{N}.es.aprender.md y ejecutar `04_conversor_anki.py` para sincronizar con Anki.
-□ 12. Generar libreta interactiva de Colab ejecutando: `python 0_AGENTES/05_generador_colab.py 3_CONCRETO/{N}.concreto.md 5_COLAB/{N}_tutorial.ipynb`.
-□ 13. Limpieza: eliminar archivos temporales, conservar los permanentes en sus carpetas respectivas
+□ 2. Transcribir PDF: ejecutar localmente `python 0_AGENTES/01_transcriptor_pdf.py --pdf 1_CAPITULO/{N}.pdf`.
+□ 3. Verificar idioma detectado:
+     - Si es Español: Omitir pasos 4 y 5. Proceder al paso 6.
+     - Si es Inglés: Solicitar al agente CLI realizar la traducción (Fase 2).
+□ 4. Traducción: Pedir al agente CLI que traduzca {N}.md al español académico siguiendo las reglas de traducción de este documento.
+□ 5. Verificación: Ejecutar localmente `python 0_AGENTES/02_verificar_traduccion.py` sobre el borrador generado para auditar fórmulas y sintaxis.
+□ 6. Integración de Conceptos: Pedir al agente CLI que lea `0_AGENTES/02_integrador_conceptos.md` y aplique la integración de conceptos directamente sobre el archivo final `2_TRADUCCIONES/{N}.es.md`.
+□ 7. Síntesis Concreta: Pedir al agente CLI que lea `0_AGENTES/03_pipeline_concreto.md` y genere el resumen en `3_CONCRETO/{N}.concreto.md`.
+□ 8. Generar Fichas: Pedir al agente CLI que genere las preguntas de estudio (Feynman, Active Recall, repetición y práctica) en `4_APRENDER/{N}.es.aprender.md`.
+□ 9. Sincronizar Anki: Iniciar Anki y ejecutar localmente `python 0_AGENTES/04_conversor_anki.py` para inyectar las fichas en la app.
+□ 10. Generar Colab: Pedir al agente CLI que lea `0_AGENTES/05_generador_colab.md` y genere la libreta interactiva en `5_COLAB/{N}_tutorial.ipynb`.
+□ 11. Limpieza: Eliminar archivos temporales de borradores y mantener los definitivos en sus carpetas respectivas.
 ```
 
 ---
