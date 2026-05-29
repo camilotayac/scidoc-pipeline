@@ -36,6 +36,11 @@ Thumbs.db
 # Track Anki memory rules and configuration explicitly
 !4_APRENDER/MEMORIA_ANKI/*
 
+# Colab Notebooks Folder
+# Ignore generated notebooks, but keep the directory structures via .gitkeep
+5_COLAB/*
+!5_COLAB/.gitkeep
+
 # Keep all agents and documentation tracked
 !0_AGENTES/
 !requirements.txt

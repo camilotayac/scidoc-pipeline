@@ -207,7 +207,8 @@ pipeline_options = PdfPipelineOptions(
 □ 9. Integrar explicaciones adicionales de conceptos directamente en 2_TRADUCCIONES/{N}.es.md en cursiva y paréntesis
 □ 10. Verificar cero marcadores residuales en 2_TRADUCCIONES/{N}.es.md
 □ 11. Generar fichas de aprendizaje en 4_APRENDER/{N}.es.aprender.md y ejecutar `04_conversor_anki.py` para sincronizar con Anki.
-□ 12. Limpieza: eliminar archivos temporales, conservar los permanentes en sus carpetas respectivas
+□ 12. Generar libreta interactiva de Colab ejecutando: `python 0_AGENTES/05_generador_colab.py 2_TRADUCCIONES/{N}.es.md 5_COLAB/{N}_tutorial.ipynb`.
+□ 13. Limpieza: eliminar archivos temporales, conservar los permanentes en sus carpetas respectivas
 ```
 
 ---
