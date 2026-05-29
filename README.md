@@ -66,93 +66,61 @@ graph TD
 
 ---
 
-## 🛠️ Guía de Configuración Rápida
+## 🚀 Configuración y Uso con Asistentes de IA (AI Agents)
 
-Sigue estos pasos para poner a funcionar el proyecto en tu máquina local:
-
-### 1. Requisitos Previos
-Asegúrate de contar con **Python 3.10+** y tener instalado la aplicación de escritorio **Anki**.
-
-### 2. Instalación del Entorno
-Clona este repositorio, navega a su directorio raíz y crea un entorno virtual de Python:
-```bash
-python3 -m venv .venv
-source .venv/bin/activate  # En macOS o Linux
-# .venv\Scripts\activate   # En Windows
-```
-Instala todas las dependencias del proyecto:
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Configuración de API Key (Gemini)
-El proyecto utiliza los modelos de Gemini para la traducción semántica y síntesis científica. Crea un archivo `.env` en la raíz con tu clave API:
-```env
-GEMINI_API_KEY="Tu_Clave_API_De_Gemini_Aquí"
-```
-
-### 4. Configurar Anki (Sincronización en un Clic)
-1. Abre tu aplicación de **Anki**.
-2. Dirígete a **Herramientas ➔ Complementos (Tools ➔ Add-ons)**.
-3. Haz clic en **Obtener complementos... (Get Add-ons...)** en la derecha.
-4. Pega el código de la extensión **AnkiConnect**:
-   ```text
-   2055492159
-   ```
-5. Acepta e instala. **Reinicia Anki** para inicializar la API local.
+Este repositorio está optimizado para una arquitectura **Agent-First**. No necesitas crear entornos virtuales de Python manualmente, ni realizar instalaciones o configuraciones complejas. Tu asistente de codificación favorito (**Antigravity CLI**, **OpenCode**, o **Claude Code**) se encargará de todo el trabajo técnico.
 
 ---
 
-## 📁 Estructura del Repositorio
+## 🛠️ Paso 1: Configuración Inicial (Vía tu Agente)
 
-*   📁 **`0_AGENTES/`**: Scripts encargados del flujo de automatización:
-    *   `01_transcriptor_pdf.py` (Fase 1: Transcribe el PDF y detecta idioma).
-    *   `02_verificar_traduccion.py` / `02_integrador_conceptos.py` (Fase 2: Traduce, formatea y pule vocabulario técnico).
-    *   `03_pipeline_concreto.py` (Fase 3: Condensa el texto y genera deducciones paso a paso).
-    *   `04_conversor_anki.py` (Fase 4: Formatea preguntas de Active Recall y las inyecta en Anki).
-*   📁 **`1_CAPITULO/`**: Almacena PDFs de entrada y transcripciones estructuradas en Markdown.
-*   📁 **`2_TRADUCCIONES/`**: Traducciones definitivas al español de rigor académico.
-*   📁 **`3_CONCRETO/`**: Resúmenes fluidos ideales para repaso rápido sin negritas invasivas.
-*   📁 **`4_APRENDER/`**: Planes de estudio individuales (`.aprender.md`) y la carpeta de persistencia de mazos `MEMORIA_ANKI/`.
+Abre la terminal en la carpeta de este proyecto, inicializa tu asistente de IA de preferencia y pídele lo siguiente:
+
+> 🤖 **Prompt para el Agente**:  
+> *"Instala los requerimientos de requirements.txt, asegúrate de que Python esté disponible y valida que mi API key de Gemini esté correctamente configurada desde el entorno local."*
+
+El agente se encargará de validar tu versión de Python, instalar las dependencias requeridas y confirmar que las llaves estén listas para operar.
 
 ---
 
-## 📖 Instrucciones de Uso Diario
+## 🎴 Paso 2: Configurar Anki (Sincronización Automática)
 
-Una vez que tengas un nuevo PDF (ejemplo: `capitulo_1.pdf`), el proceso es muy sencillo:
-
-1. Coloca el archivo en **`1_CAPITULO/`**.
-2. Ejecuta la transcripción inicial:
-   ```bash
-   python 0_AGENTES/01_transcriptor_pdf.py --pdf 1_CAPITULO/capitulo_1.pdf
-   ```
-3. Si el capítulo está en inglés, ejecuta la traducción y verificación (scripts `02_*`). Si ya estaba en español, salta este paso.
-4. Genera la versión resumida y explicada matemáticamente:
-   ```bash
-   python 0_AGENTES/03_pipeline_concreto.py 2_TRADUCCIONES/capitulo_1.es.md 3_CONCRETO/capitulo_1.concreto.md
-   ```
-5. Asegúrate de tener **Anki abierto** y ejecuta la inyección de tarjetas de estudio:
-   ```bash
-   python 0_AGENTES/04_conversor_anki.py
-   ```
-   *¡Tus tarjetas se organizarán automáticamente en submazos de Física y Matemáticas dentro del mazo principal **SciDoc**!*
+Para que el agente pueda inyectar las fichas directamente en tu aplicación de estudio:
+1. Abre tu aplicación de **Anki** en tu computadora.
+2. Ve al menú superior: **Herramientas ➔ Complementos (Tools ➔ Add-ons)**.
+3. Haz clic en **Obtener complementos... (Get Add-ons...)**.
+4. Pega el código de **AnkiConnect**: `2055492159`
+5. Reinicia Anki.
 
 ---
 
-## 🤖 Integración con Asistentes de Codificación IA (AI Agents)
+## 📖 Paso 3: Uso Diario y Ejecución del Pipeline (Vía tu Agente)
 
-Este repositorio ha sido diseñado bajo una arquitectura **Agent-First**. Está optimizado para que asistentes de terminal autónomos como **Antigravity CLI (Gemini)**, **OpenCode** o **Claude Code (Anthropic)** puedan leer las reglas del proyecto, ejecutar las herramientas y realizar correcciones automáticamente.
+Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo_1.pdf`) en la carpeta `1_CAPITULO/` y delegar las fases al agente usando estos comandos en lenguaje natural:
 
-### Instrucciones para los Agentes (Prompts Sugeridos)
+### Fases de Ejecución:
 
-Puedes pedirle directamente a tu asistente de IA de preferencia que realice las tareas del pipeline. Aquí tienes algunos ejemplos:
+*   **Para transcribir y estructurar el PDF**:
+    > 🤖 **Prompt**: *"Ejecuta la transcripción en 01_transcriptor_pdf.py para el PDF en 1_CAPITULO/capitulo_1.pdf y verifica el idioma detectado."*
+    *(Nota: Si el agente detecta que el PDF ya está en español, omitirá automáticamente la Fase 2 de traducción).*
+    
+*   **Para traducir y realizar control de calidad**:
+    > 🤖 **Prompt**: *"Traduce el capítulo transcrito, verifica que la sintaxis LaTeX sea correcta y que los conceptos técnicos clave queden destacados en negrita según las reglas de 00_ejecutor.md."*
 
-*   **Para procesar un nuevo capítulo completo**:
-    > *"Ejecuta el script de transcripción `01_transcriptor_pdf.py` para el PDF `1_CAPITULO/capitulo_2.pdf` y, si está en inglés, coordina la traducción y generación del resumen en la carpeta `3_CONCRETO/`."*
-*   **Para sincronizar fichas automáticamente**:
-    > *"Asegúrate de que mi aplicación Anki esté abierta y ejecuta el script `04_conversor_anki.py` para sincronizar las nuevas tarjetas."*
-*   **Para corregir errores de formato**:
-    > *"Lee el archivo `00_ejecutor.md` y verifica que los archivos en `2_TRADUCCIONES/` y `3_CONCRETO/` no contengan etiquetas `formula-not-decoded` ni errores de sintaxis LaTeX."*
+*   **Para sintetizar el contenido y crear las fichas de estudio**:
+    > 🤖 **Prompt**: *"Genera el resumen concreto en 3_CONCRETO/ y las fichas de aprendizaje en 4_APRENDER/ para este capítulo."*
 
-Los agentes tienen total capacidad de ejecutar comandos locales, validar la sintaxis de las ecuaciones y resolver problemas de codificación de forma autónoma.
+*   **Para sincronizar con tu Anki**:
+    > 🤖 **Prompt**: *"Asegúrate de que mi aplicación Anki esté abierta y ejecuta el script 04_conversor_anki.py para importar las fichas directamente."*
+
+---
+
+## 📂 Estructura del Repositorio
+
+*   📁 **`0_AGENTES/`**: Scripts de automatización ejecutados por los agentes (`01_transcriptor_pdf.py`, `02_verificar_traduccion.py`, `03_pipeline_concreto.py`, `04_conversor_anki.py`).
+*   📁 **`1_CAPITULO/`**: PDF original y transcripción Markdown (`.md`) inicial.
+*   📁 **`2_TRADUCCIONES/`**: Archivos traducidos formalmente al español científico.
+*   📁 **`3_CONCRETO/`**: Versión condensada con explicaciones paso a paso de fórmulas complejas.
+*   📁 **`4_APRENDER/`**: Cronogramas de repetición y la memoria de mazos de Anki (`MEMORIA_ANKI/`).
+
 
