@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# OS-specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project Folder Structure Keepers
+# Ignore all content in these folders, but keep the directory structures via .gitkeep
+1_CAPITULO/*
+!1_CAPITULO/.gitkeep
+
+2_TRADUCCIONES/*
+!2_TRADUCCIONES/.gitkeep
+
+3_CONCRETO/*
+!3_CONCRETO/.gitkeep
+
+# Learn Folder and Flashcards
+# Ignore all files in 4_APRENDER, but allow the folder itself and the MEMORIA_ANKI subfolder configuration
+4_APRENDER/*
+!4_APRENDER/.gitkeep
+!4_APRENDER/MEMORIA_ANKI/
+# Track Anki memory rules and configuration explicitly
+!4_APRENDER/MEMORIA_ANKI/*
+
+# Keep all agents and documentation tracked
+!0_AGENTES/
+!requirements.txt
+!README.md

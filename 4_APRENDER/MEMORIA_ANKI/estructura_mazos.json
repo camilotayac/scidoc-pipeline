@@ -1,0 +1,36 @@
+{
+  "mazo_principal": "Química Cuántica",
+  "descripcion": "Estructura de mazos y submazos de Anki para el estudio de Química Cuántica y Mecánica Cuántica.",
+  "submazos": [
+    {
+      "nombre": "Química Cuántica::01_Ecuación_Schrödinger",
+      "descripcion": "Conceptos fundamentales, deducciones y principios asociados a la ecuación de Schrödinger en 1D.",
+      "temas_asociados": [
+        "Dualidad onda-partícula",
+        "Principio de incertidumbre de Heisenberg",
+        "Función de onda",
+        "Estados estacionarios",
+        "Ecuación de Schrödinger dependiente e independiente del tiempo"
+      ]
+    },
+    {
+      "nombre": "Química Cuántica::02_Matemáticas_Física",
+      "descripcion": "Herramientas matemáticas y físicas fundamentales requeridas para el desarrollo cuántico.",
+      "temas_asociados": [
+        "Números complejos",
+        "Fórmula de Euler",
+        "Constantes físicas",
+        "Ley de Coulomb"
+      ]
+    },
+    {
+      "nombre": "Química Cuántica::03_Problemas_Prácticos",
+      "descripcion": "Problemas de cálculo, normalización y aplicación de fórmulas.",
+      "temas_asociados": [
+        "Normalización de funciones de onda",
+        "Cálculo de probabilidades",
+        "Superposiciones no estacionarias"
+      ]
+    }
+  ]
+}
