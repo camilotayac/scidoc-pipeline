@@ -110,6 +110,9 @@ Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo
 *   **Para sintetizar el contenido y crear las fichas de estudio**:
     > 🤖 **Prompt**: *"Genera el resumen concreto en 3_CONCRETO/ y las fichas de aprendizaje en 4_APRENDER/ para este capítulo."*
 
+*   **Para crear el tutorial interactivo de Google Colab (basado en el resumen concreto)**:
+    > 🤖 **Prompt**: *"Ejecuta el script 05_generador_colab.py pasando como entrada el archivo resumido en 3_CONCRETO/1.concreto.md y guardando la libreta resultante en 5_COLAB/1_tutorial.ipynb."*
+
 *   **Para sincronizar con tu Anki**:
     > 🤖 **Prompt**: *"Asegúrate de que mi aplicación Anki esté abierta y ejecuta el script 04_conversor_anki.py para importar las fichas directamente."*
 
@@ -117,10 +120,11 @@ Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo
 
 ## 📂 Estructura del Repositorio
 
-*   📁 **`0_AGENTES/`**: Scripts de automatización ejecutados por los agentes (`01_transcriptor_pdf.py`, `02_verificar_traduccion.py`, `03_pipeline_concreto.py`, `04_conversor_anki.py`).
+*   📁 **`0_AGENTES/`**: Scripts de automatización ejecutados por los agentes (`01_transcriptor_pdf.py`, `02_verificar_traduccion.py`, `03_pipeline_concreto.py`, `04_conversor_anki.py`, `05_generador_colab.py`).
 *   📁 **`1_CAPITULO/`**: PDF original y transcripción Markdown (`.md`) inicial.
 *   📁 **`2_TRADUCCIONES/`**: Archivos traducidos formalmente al español científico.
 *   📁 **`3_CONCRETO/`**: Versión condensada con explicaciones paso a paso de fórmulas complejas.
 *   📁 **`4_APRENDER/`**: Cronogramas de repetición y la memoria de mazos de Anki (`MEMORIA_ANKI/`).
+*   📁 **`5_COLAB/`**: Libretas de Jupyter resultantes (`.ipynb`) para Google Colab.
 
 
