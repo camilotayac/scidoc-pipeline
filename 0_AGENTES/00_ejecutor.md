@@ -203,7 +203,7 @@ pipeline_options = PdfPipelineOptions(
 □ 5. Verificación: Ejecutar localmente `python 0_AGENTES/02_verificar_traduccion.py` sobre el borrador generado para auditar fórmulas y sintaxis.
 □ 6. Integración de Conceptos: Pedir al agente CLI que lea `0_AGENTES/02_integrador_conceptos.md` y aplique la integración de conceptos directamente sobre el archivo final `2_TRADUCCIONES/{N}.es.md`.
 □ 7. Síntesis Concreta: Pedir al agente CLI que lea `0_AGENTES/03_pipeline_concreto.md` y genere el resumen en `3_CONCRETO/{N}.concreto.md`.
-□ 8. Generar Fichas: Pedir al agente CLI que genere las preguntas de estudio (Feynman, Active Recall, repetición y práctica) en `4_APRENDER/{N}.es.aprender.md`.
+□ 8. Generar Fichas: Pedir al agente CLI que lea `0_AGENTES/04_generador_fichas.md` y genere el plan con preguntas en `4_APRENDER/{N}.es.aprender.md`.
 □ 9. Sincronizar Anki: Iniciar Anki y ejecutar localmente `python 0_AGENTES/04_conversor_anki.py` para inyectar las fichas en la app.
 □ 10. Generar Colab: Pedir al agente CLI que lea `0_AGENTES/05_generador_colab.md` y genere la libreta interactiva en `5_COLAB/{N}_tutorial.ipynb`.
 □ 11. Limpieza: Eliminar archivos temporales de borradores y mantener los definitivos en sus carpetas respectivas.

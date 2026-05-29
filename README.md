@@ -115,7 +115,7 @@ Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo
     > 🤖 **Prompt**: *"Lee las instrucciones de `0_AGENTES/03_pipeline_concreto.md` y aplícalas sobre `2_TRADUCCIONES/capitulo_1.es.md` para generar el resumen riguroso en `3_CONCRETO/capitulo_1.concreto.md`."*
 
 *   **Para generar fichas de Anki**:
-    > 🤖 **Prompt**: *"Genera las preguntas de autoevaluación (Feynman, Active Recall, repetición y práctica) en `4_APRENDER/capitulo_1.es.aprender.md`. Asegúrate de que mi aplicación Anki esté abierta y ejecuta localmente el script `python 0_AGENTES/04_conversor_anki.py` para importarlas directamente al mazo SciDoc."*
+    > 🤖 **Prompt**: *"Lee las instrucciones de `0_AGENTES/04_generador_fichas.md` y aplícalas para generar el plan de aprendizaje y autoevaluación activa en `4_APRENDER/capitulo_1.es.aprender.md`. Luego, asegúrate de que mi aplicación Anki esté abierta y ejecuta localmente el script `python 0_AGENTES/04_conversor_anki.py` para importarlas directamente al mazo SciDoc."*
 
 *   **Para crear el tutorial interactivo de Google Colab**:
     > 🤖 **Prompt**: *"Lee las instrucciones de `0_AGENTES/05_generador_colab.md` y aplícalas sobre `3_CONCRETO/capitulo_1.concreto.md` para generar la libreta interactiva de Jupyter en `5_COLAB/capitulo_1_tutorial.ipynb`."*
@@ -129,6 +129,7 @@ Para procesar tus capítulos, solo debes colocar el PDF del libro (ej. `capitulo
     *   `02_verificar_traduccion.py` (Script local: Auditoría de sintaxis y LaTeX).
     *   `02_integrador_conceptos.md` (Agente de IA: Instrucciones de conceptos).
     *   `03_pipeline_concreto.md` (Agente de IA: Instrucciones de síntesis).
+    *   `04_generador_fichas.md` (Agente de IA: Instrucciones para generar fichas de Active Recall).
     *   `04_conversor_anki.py` (Script local: Conversión y sincronización AnkiConnect).
     *   `05_generador_colab.md` (Agente de IA: Instrucciones de creación de libretas Jupyter).
 *   📁 **`1_CAPITULO/`**: PDF original y transcripción Markdown (`.md`) inicial.
