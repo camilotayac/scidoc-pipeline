@@ -39,22 +39,21 @@ def generate_concept_guide(input_md_path: str, output_md_path: str, model_name: 
         print(f"Error initializing Gemini client: {e}", file=sys.stderr)
         sys.exit(1)
 
+    # Cargar las instrucciones del agente desde el archivo .md correspondiente de manera dinámica.
+    # Si el usuario o agente edita el archivo .md, el comportamiento del .py se actualizará automáticamente.
+    prompt_file_path = Path(__file__).resolve().parent / "02_integrador_conceptos.md"
+    try:
+        with open(prompt_file_path, "r", encoding="utf-8") as pf:
+            system_instructions = pf.read()
+    except Exception as e:
+        print(f"Error al cargar las instrucciones del sistema desde {prompt_file_path}: {e}", file=sys.stderr)
+        sys.exit(1)
+
     prompt = f"""
-Actúa como un profesor experto y científico de datos. Tu tarea es analizar la siguiente traducción de un capítulo de libro e identificar todos los conceptos que sean difíciles, avanzados, técnicos o matemáticos que un estudiante o profesional promedio podría encontrar complicados.
-
-Para cada uno de estos conceptos identificados, debes generar una explicación detallada estructurada de la siguiente manera:
+{system_instructions}
 
 ---
-### 📘 [Nombre del Concepto]
-- **Ubicación/Contexto en el texto**: Breve descripción o cita de dónde o cómo se menciona en el texto.
-- **¿Por qué es difícil/avanzado?**: Explica brevemente qué hace que este concepto sea complejo o requiera prerrequisitos.
-- **Explicación Sencilla (Intuición)**: Una explicación para principiantes (estilo "Explain Like I'm 5" o analogía cotidiana) para entender el núcleo de la idea sin tecnicismos complejos.
-- **Explicación Profunda y Técnica**: Un análisis técnico detallado. Si aplica, incluye fórmulas matemáticas (en formato LaTeX de markdown), algoritmos, diagramas conceptuales representados con texto o código, y detalles arquitectónicos o teóricos clave.
----
-
-Por favor, genera la respuesta directamente en formato Markdown en español. No agregues texto introductorio ni de cierre innecesario, ve directo al grano para que el documento resultante sea una guía de acompañamiento limpia y estructurada.
-
-Aquí está el texto traducido del capítulo:
+Aquí está el texto traducido del capítulo a procesar:
 
 {content}
 """
