@@ -9,6 +9,11 @@ import sys
 from pathlib import Path
 
 def verify_document(es_md_path, en_md_path, images_dir):
+    """
+    Realiza una auditoría exhaustiva del archivo traducido al español.
+    Valida la inexistencia de marcadores residuales, la existencia física de imágenes,
+    el formato de fórmulas críticas en LaTeX y las estructuras de conceptos/años.
+    """
     print(f"=== INICIANDO VERIFICACIÓN DE: {es_md_path} ===")
     
     if not os.path.exists(es_md_path):
@@ -20,8 +25,10 @@ def verify_document(es_md_path, en_md_path, images_dir):
 
     errors = 0
 
-    # 1. Verificar marcadores residuales de Docling
-    print("\n1. Buscando marcadores residuales...")
+    # ----------------------------------------------------
+    # 1. Verificar marcadores residuales del motor Docling
+    # ----------------------------------------------------
+    print("\n1. Buscando marcadores residuales de transcripción...")
     formula_placeholders = content.count("formula-not-decoded")
     image_placeholders = content.count("<!-- image -->")
     
@@ -37,9 +44,11 @@ def verify_document(es_md_path, en_md_path, images_dir):
     else:
         print("  [OK] Cero marcadores '<!-- image -->'.")
 
-    # 2. Verificar referencias de imágenes y existencia física de archivos
+    # ----------------------------------------------------
+    # 2. Verificar existencia física y rutas de imágenes
+    # ----------------------------------------------------
     print("\n2. Verificando referencias a imágenes y existencia física...")
-    # Matches patterns like ![caption](./1_images/image.png) or similar relative paths
+    # Busca el patrón clásico de Markdown para imágenes: ![caption](ruta_imagen)
     img_matches = re.findall(r"!\[.*?\]\((.*?)\)", content)
     
     if not img_matches:
@@ -47,35 +56,36 @@ def verify_document(es_md_path, en_md_path, images_dir):
     else:
         print(f"  Se encontraron {len(img_matches)} referencias a imágenes.")
         for img_path in img_matches:
-            # Clean up query params if any
+            # Limpiar parámetros de consulta o anclajes si existen en la URL/ruta
             clean_path = img_path.split("?")[0].split("#")[0]
-            # Since 1.es.md is in 2_TRADUCCIONES/, relative path ./1_images/image.png
-            # actually points to 2_TRADUCCIONES/1_images/image.png.
-            # But the images are stored in 1_CAPITULO/1_images/.
-            # Let us check the path relative to the workspace root or the folder.
-            base_dir = os.path.dirname(es_md_path) # 2_TRADUCCIONES/
             
-            # The expected relative path in 1.es.md is: ../1_CAPITULO/1_images/image.png
-            # Let us resolve it:
+            # Resolvemos la ruta relativa tomando como base la carpeta de traducciones
+            base_dir = os.path.dirname(es_md_path)
             absolute_img_path = os.path.abspath(os.path.join(base_dir, clean_path))
             
             if os.path.exists(absolute_img_path):
-                print(f"  [OK] Imagen encontrada: {clean_path} -> {absolute_img_path}")
+                print(f"  [OK] Imagen encontrada en: {clean_path} -> {absolute_img_path}")
             else:
+                # Comprobación de respaldo (fallback) en la carpeta original del capítulo
                 project_root = Path(__file__).resolve().parent.parent
                 fallback_path = os.path.abspath(project_root / "1_CAPITULO" / clean_path.replace("../1_CAPITULO/", ""))
                 if os.path.exists(fallback_path):
-                    print(f"  [OK] Imagen encontrada en carpeta original (pero la ruta relativa debe ajustarse): {clean_path}")
+                    print(f"  [OK] Imagen encontrada en carpeta de origen (pero la ruta relativa en el Markdown debe corregirse): {clean_path}")
                 else:
                     print(f"  [ERROR] El archivo de imagen no existe físicamente: {absolute_img_path}")
                     errors += 1
 
-    # 3. Verificar que las fórmulas matemáticas críticas estén en LaTeX
+    # ----------------------------------------------------
+    # 3. Verificar integridad del formato LaTeX
+    # ----------------------------------------------------
     print("\n3. Verificando integridad de formato LaTeX...")
-    # Separate parts outside of LaTeX blocks
+    
+    # Dividimos por '$' para aislar el texto normal del texto matemático
     parts = content.split("$")
+    # Los fragmentos en índice par corresponden a texto normal fuera de LaTeX
     outside_latex_content = "".join(parts[::2])
     
+    # Identificar ecuaciones físicas escritas como texto simple (deben estar en LaTeX)
     raw_var_exps = [
         (r"\bh\s*n\b", "h\\nu"),
         (r"\bpc\s*=\s*h\s*n\b", "pc = h\\nu"),
@@ -91,7 +101,7 @@ def verify_document(es_md_path, en_md_path, images_dir):
             print(f"  [ERROR] Expresión sin formatear detectada: {matches} -> debe ser LaTeX: ${latex}$")
             errors += 1
             
-    # Verify brackets mismatch in LaTeX $...$
+    # Validar balanceo de llaves {} dentro de las fórmulas LaTeX
     latex_blocks = re.findall(r"\$(.*?)\$", content)
     for block in latex_blocks:
         open_braces = block.count("{")
@@ -100,20 +110,23 @@ def verify_document(es_md_path, en_md_path, images_dir):
             print(f"  [ERROR] Desajuste de llaves en bloque LaTeX: ${block}$ (Llaves abiertas: {open_braces}, Cerradas: {close_braces})")
             errors += 1
 
-    # 4. Verificar que todas las fechas/años conocidos estén en LaTeX
-    print("\n4. Verificando años e hitos históricos...")
+    # ----------------------------------------------------
+    # 4. Verificar que años históricos tengan formato LaTeX
+    # ----------------------------------------------------
+    print("\n4. Verificando formato de años e hitos históricos...")
     years = ["1749", "1803", "1827", "1864", "1887", "1888", "1900", "1904", "1905", "1907", "1909", "1911", "1913", "1923", "1925", "1926", "1927", "1932", "1948", "1961", "1965", "1988", "1993", "2001", "2002", "2005", "2012"]
     
-    # We find any bare occurrence of these years (not inside a LaTeX block)
     for yr in years:
-        # Regex matches year if not immediately preceded by \text{ or $
+        # Regex para capturar el año solo si no forma parte de una fórmula o etiqueta LaTeX
         pattern = r"(?<![\$\{\d])\b" + yr + r"\b(?![\}\d\$])"
         matches = re.findall(pattern, content)
         if matches:
             print(f"  [ERROR] Año sin formato LaTeX detectado: {yr} -> debe ser $\\text{{{yr}}}$")
             errors += 1
 
-    # 5. Verificar que las explicaciones de conceptos integradas estén completas
+    # ----------------------------------------------------
+    # 5. Verificar integración de conceptos (Negrita + Cursiva)
+    # ----------------------------------------------------
     print("\n5. Verificando formato de conceptos en negrita y explicaciones en cursiva...")
     concept_pattern = r"\*\*[^*]+\*\*\s*\(\*[^*]+\*\)"
     integrated_concepts = re.findall(concept_pattern, content)
@@ -124,6 +137,9 @@ def verify_document(es_md_path, en_md_path, images_dir):
     else:
         print(f"  [OK] Total de conceptos integrados verificados: {len(integrated_concepts)}")
 
+    # ----------------------------------------------------
+    # Resumen Final de Errores y Retorno
+    # ----------------------------------------------------
     print("\n=== RESUMEN DE LA VERIFICACIÓN ===")
     if errors == 0:
         print("✅ ¡La verificación se completó con éxito! El documento cumple con todas las directrices.")
